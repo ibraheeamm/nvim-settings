@@ -40,3 +40,12 @@
 [submodule "pack/plugins/start/indentLine"]
 	path = pack/plugins/start/indentLine
 	url = https://github.com/Yggdroot/indentLine.git
+[submodule "pack/plugins/start/rust.vim"]
+	path = pack/plugins/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim
+[submodule "pack/plugins/start/nvim-tree.lua"]
+	path = pack/plugins/start/nvim-tree.lua
+	url = https://github.com/kyazdani42/nvim-tree.lua
+[submodule "pack/plugins/start/vimsence"]
+	path = pack/plugins/start/vimsence
+	url = https://github.com/vimsence/vimsence.git
