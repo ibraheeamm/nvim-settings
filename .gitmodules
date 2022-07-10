@@ -49,3 +49,6 @@
 [submodule "pack/plugins/start/vimsence"]
 	path = pack/plugins/start/vimsence
 	url = https://github.com/vimsence/vimsence.git
+[submodule "pack/plugins/start/--force"]
+	path = pack/plugins/start/--force
+	url = https://github.com/vimsence/vimsence.git
