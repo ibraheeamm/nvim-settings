@@ -209,6 +209,14 @@ return require("packer").startup(function(use)
     use("nvim-telescope/telescope-media-files.nvim")
 
     -- vim yaml
-    use("stephpy/vim-yaml") 
+    use("stephpy/vim-yaml")
+
+    use({
+        "akinsho/flutter-tools.nvim",
+        config = function()
+            require("flutter-tools").setup()
+        end,
+        requires = 'nvim-lua/plenary.nvim'
+    })
 
 end)
