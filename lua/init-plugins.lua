@@ -1,3 +1,15 @@
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
     -- package manager
     use("wbthomason/packer.nvim")
@@ -12,10 +24,10 @@ return require("packer").startup(function(use)
     use 'ray-x/guihua.lua' -- recommanded if need floating window support
     -- github copilot
     use({
-"github/copilot.vim",
-        config = function()
-            require("copilot").setup()
-        end,
+        "github/copilot.vim",
+         package_root = os.getenv("HOME") .. '/.config/nvim/pack/github/start/copilot.vim'
+            -- install the plugin in specific folder
+
         })
         
     -- lua functions
