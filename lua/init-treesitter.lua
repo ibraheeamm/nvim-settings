@@ -23,6 +23,7 @@ require("nvim-treesitter.configs").setup({
         "tsx",
         "typescript",
         "vue",
+        "dart",
     },
     -- auto tag with nvim-ts-autotag
     autotag = { enable = true },
