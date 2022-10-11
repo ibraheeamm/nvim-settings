@@ -3,7 +3,9 @@
 --vim.cmd('colorscheme nord')
 -- setup space as leader key
 vim.g.mapleader = " "
+-- set termguicolors 
 
+vim.opt.termguicolors = true
 -- Disable some default plugins
 vim.g.loaded_gzip = 1
 vim.g.loaded_zip = 1

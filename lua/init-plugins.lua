@@ -13,9 +13,8 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
     -- package manager
     use("wbthomason/packer.nvim")
- 
     -- go.nvim
-    use({ 
+    use({
         "ray-x/go.nvim",
         config = function()
             require("go").setup()
