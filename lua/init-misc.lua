@@ -5,7 +5,9 @@
 vim.g.mapleader = " "
 -- set termguicolors 
 
-vim.opt.termguicolors = true
+
+-- set colorscheme 
+
 -- Disable some default plugins
 vim.g.loaded_gzip = 1
 vim.g.loaded_zip = 1

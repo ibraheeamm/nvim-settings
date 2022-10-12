@@ -159,6 +159,14 @@ return require("packer").startup(function(use)
             require("init-theme")
         end,
     })
+    -- solarized color scheme
+    use({
+        "shaunsingh/solarized.nvim",
+        config = function ()
+            require("init-theme")
+        end,
+
+    })
 
     -- status line
     use({
