@@ -1,42 +1,27 @@
 require("nvim-treesitter.configs").setup({
+    compilers = { "gcc", "go", "c", "rust"},
     ensure_installed = {
-        "bash",
-        "c",
-        "cmake",
-        "comment",
-        "cpp",
-        "css",
-        "go",
-        "html",
-        "java",
-        "javascript",
+        "bash",        "javascript",
         "json",
         "json5",
         "jsonc",
-        "kotlin",
         "lua",
         "python",
-        "rust",
-        "scheme",
-        "scss",
-        "svelte",
-        "tsx",
-        "typescript",
-        "vue",
         "dart",
+        "typescript",
+        "tsx",
+        "yaml",
+        "html",
+        "css",
+        "scss",
+        "graphql",
+        "toml",
+        "regex",
     },
+
+    auto_install = true,
     -- auto tag with nvim-ts-autotag
-    autotag = { enable = true },
-    highlight = { enable = true },
-    rainbow = {
-        enable = true,
-        extended_mode = true,
-        max_file_lines = nil
-    },
-    context_commentstring = {
-        enable = true,
-        enable_autocmd = false
-    }
+    highlight = { enable = true }
 })
 
 vim.o.foldmethod = "expr"

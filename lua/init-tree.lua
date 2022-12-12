@@ -1,3 +1,10 @@
+-- disable netwr 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- set tirmguicolors to enable highlight groups
+vim.g.termguicolors = true
+
 -- empty setup using defaults
 local tree = require("nvim-tree")
 

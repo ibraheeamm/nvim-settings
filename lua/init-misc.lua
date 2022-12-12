@@ -1,8 +1,10 @@
+-- set runtime path
+-- vim.o.runtimepath = vim.o.runtimepath .. ',~/.config/nvim/'
 -- set theme
 -- set colorscheme nord
 --vim.cmd('colorscheme nord')
 -- setup space as leader key
-vim.g.mapleader = " "
+vim.g.mapleader = ","
 -- set termguicolors 
 
 
@@ -47,7 +49,7 @@ vim.o.wrap = false
 vim.o.foldenable = false
 -- Add scrolloff for better zt/zb
 vim.o.scrolloff = 3
--- Show sign column (e.g. lsp Error sign)
+-- Show sign columnf(e.g. lsp Error sign)
 vim.o.signcolumn = "yes"
 -- Better completion
 vim.o.completeopt = "menu,menuone,noselect"

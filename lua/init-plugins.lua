@@ -13,14 +13,19 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
     -- package manager
     use("wbthomason/packer.nvim")
-    -- go.nvim
+    -- lsp support
     use({
-        "ray-x/go.nvim",
+        "neovim/nvim-lspconfig",
         config = function()
-            require("go").setup()
+            require("init-lspconf")
         end,
-        })
-    use 'ray-x/guihua.lua' -- recommanded if need floating window support
+    })
+    use("lukas-reineke/lsp-format.nvim")
+    -- go.nvim
+    use({ 
+	    "fatih/vim-go", 
+	    run = 'GoUpdateBinaries'
+    })
     -- github copilot
     use({
         "github/copilot.vim",
@@ -28,7 +33,11 @@ return require("packer").startup(function(use)
             -- install the plugin in specific folder
 
         })
-        
+       
+    use ({ 
+	    "windwp/nvim-autopairs", 
+	    config = function() require("nvim-autopairs").setup {} end
+	    })
     -- lua functions
     use("nvim-lua/plenary.nvim")
     -- neovim ui components
@@ -44,6 +53,7 @@ return require("packer").startup(function(use)
     -- termial integration
     use({
         "akinsho/nvim-toggleterm.lua",
+        tag = "*",
         config = function()
             require("init-term")
         end,
@@ -57,15 +67,8 @@ return require("packer").startup(function(use)
             vim.notify.setup({ background_colour = "#282c34" })
         end
     })
-
-    -- surround support
-    use({
-        "kylechui/nvim-surround",
-        tag = "*",
-        config = function()
-            require("nvim-surround").setup({})
-        end
-    })
+    -- vim helm
+    use('towolf/vim-helm')
 
     -- auto completion
     use({
@@ -82,13 +85,7 @@ return require("packer").startup(function(use)
             { "saadparwaiz1/cmp_luasnip" }
         },
     })
-    -- lsp support
-    use({
-        "neovim/nvim-lspconfig",
-        config = function()
-            require("init-lspconf")
-        end,
-    })
+
     -- null-ls for missing ls functionalities
     -- disable null-ls tempoaraly
     -- use({
@@ -118,33 +115,7 @@ return require("packer").startup(function(use)
         end,
         requires = { { "mfussenegger/nvim-dap" }, { "theHamsta/nvim-dap-virtual-text" } },
     })
-    -- treesitter config
-    use({
-        "nvim-treesitter/nvim-treesitter",
-        config = function()
-            require("init-treesitter")
-        end,
-    })
-    -- better lisp editing
-    use("eraserhd/parinfer-rust")
-    -- auto pairs
-    use("windwp/nvim-autopairs")
-    -- auto tags
-    use("windwp/nvim-ts-autotag")
-    -- rainbow
-    use("p00f/nvim-ts-rainbow")
-    -- comment
-    use({
-        "terrortylor/nvim-comment",
-        config = function()
-            require("nvim_comment").setup({
-                hook = function()
-                    require("ts_context_commentstring.internal").update_commentstring()
-                end,
-            })
-        end,
-        requires = { { "JoosepAlviste/nvim-ts-context-commentstring" } }
-    })
+
     use({
         "lukas-reineke/indent-blankline.nvim",
         config = function()
@@ -197,6 +168,7 @@ return require("packer").startup(function(use)
         end,
     })
 
+    use({"nvim-treesitter/nvim-treesitter" , run = 'TSUpdate'})
     -- file explorer
     use({
         "kyazdani42/nvim-tree.lua",
@@ -216,7 +188,14 @@ return require("packer").startup(function(use)
     use("nvim-telescope/telescope-media-files.nvim")
 
     -- vim yaml
-    use("stephpy/vim-yaml")
+   use ({
+  "cuducos/yaml.nvim",
+  ft = {"yaml"}, -- optional
+  requires = {
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-telescope/telescope.nvim" -- optional
+  },
+})
 
     use({
         "akinsho/flutter-tools.nvim",
@@ -225,5 +204,8 @@ return require("packer").startup(function(use)
         end,
         requires = 'nvim-lua/plenary.nvim'
     })
+
+    -- vim-cue
+    use("jjo/vim-cue")
 
 end)
