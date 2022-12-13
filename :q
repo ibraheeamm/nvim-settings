@@ -223,8 +223,8 @@ return require("packer").startup(function(use)
             { "nvim-treesitter/tree-sitter-query" },
             { "JoosepAlviste/nvim-ts-context-commentstring" },
             { "p00f/nvim-ts-rainbow" },
-            { "nvim-treesitter/tree-sitter-queries" },
-            { "nvim-treesitter/nvim-treesitter-textsubjects" },
+            { "nvim-treesitter/queries" },
+            { "nvim-treesitter/textsubjects" },
             { "windwp/nvim-ts-autotag" },
         },
 

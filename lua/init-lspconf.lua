@@ -29,7 +29,7 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-local servers = { "clangd", "pylsp", "gopls", "tsserver", "bashls" }
+local servers = { "clangd", "pylsp", "gopls", "tsserver", "bashls", "yamlls"  }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup({
         on_attach = on_attach,
@@ -96,3 +96,16 @@ nvim_lsp.gopls.setup ({
       },
     },
   })
+
+nvim_lsp.yamlls.setup({
+    cmd = { "yaml-language-server", "--stdio" },
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+nvim_lsp.bashls.setup({
+    cmd = {"bash-language-server", "start"},
+    on_attach = on_attach,
+    capabilities = capabilities,
+
+})
