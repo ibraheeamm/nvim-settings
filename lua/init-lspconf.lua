@@ -26,8 +26,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting, opts)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local servers = { "clangd", "pylsp", "gopls", "tsserver", "bashls", "yamlls"  }
 for _, lsp in ipairs(servers) do

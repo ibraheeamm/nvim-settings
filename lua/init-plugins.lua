@@ -218,16 +218,17 @@ return require("packer").startup(function(use)
         requires = {
             { "nvim-treesitter/nvim-treesitter-textobjects" },
             { "nvim-treesitter/nvim-treesitter-refactor" },
-            { "nvim-treesitter/context" },
+            { "nvim-treesitter/nvim-treesitter-context" },
             { "nvim-treesitter/playground" },
             { "nvim-treesitter/tree-sitter-query" },
             { "JoosepAlviste/nvim-ts-context-commentstring" },
             { "p00f/nvim-ts-rainbow" },
-            { "nvim-treesitter/tree-sitter-queries" },
-            { "nvim-treesitter/nvim-treesitter-textsubjects" },
+            { "RRethy/nvim-treesitter-textsubjects" },
             { "windwp/nvim-ts-autotag" },
         },
 
     })
+
+    use({'echasnovski/mini.nvim'})
 
 end)
