@@ -18,7 +18,6 @@ require("nvim-treesitter.configs").setup({
         "graphql",
         "toml",
         "regex",
-        "tsx",
     },
 
     auto_install = true,

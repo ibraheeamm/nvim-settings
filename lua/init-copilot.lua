@@ -1,13 +1,5 @@
 
--- imap <silent><   script><expr><C-J> copilot#Accept("\<CR>")
--- convergt to lua
-
--- imap <silent><   script><expr><C-J> copilot#Accept("\<CR>")
-local ok, copilot = pcall(require, "copilot")
-if not ok then 
-    return 
-end
-
+-- copilot setup
 
 vim.g.copilot_autotrigger = true
 vim.g.copilot_no_tab_map = true

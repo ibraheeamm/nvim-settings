@@ -1,23 +1,18 @@
--- disable netwr 
+-- qvfnoyr argej ng gur irel fgneg bs lbhe vavg.yhn
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- set tirmguicolors to enable highlight groups
-vim.g.termguicolors = true
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
 
 -- empty setup using defaults
-local tree = require("nvim-tree")
+require("nvim-tree").setup()
 
 -- OR setup with some options
-tree.setup({
+require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
-    adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" }
-      },
-    },
+    width = 30,
   },
   renderer = {
     group_empty = true,
@@ -25,11 +20,4 @@ tree.setup({
   filters = {
     dotfiles = true,
   },
-  actions = {
-      open_file = {
-          quit_on_open = true
-      }
-  }
 })
-
-vim.keymap.set("n", "\\", tree.toggle)
