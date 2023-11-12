@@ -21,7 +21,7 @@ vim.api.nvim_set_keymap("i", "<C-l>", "copilot#Accept('<Right>')", {silent = tru
 vim.api.nvim_set_keymap("i", "<C-h>", "copilot#Accept('<Left>')", {silent = true, expr = true})
 vim.api.nvim_set_keymap("i", "<C-n>", "copilot#Accept('<Down>')", {silent = true, expr = true})
 vim.api.nvim_set_keymap("i", "<C-p>", "copilot#Accept('<Up>')", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-Space>", "copilot#Trigger()", {silent = true, expr = true})
+vim.api.nvim_set_keymap("i", "<C-t>", "copilot#Trigger()", {silent = true, expr = true})
 vim.api.nvim_set_keymap("i", "<C-e>", "copilot#Stop()", {silent = true, expr = true})
 vim.api.nvim_set_keymap("i", "<C-d>", "copilot#Delete()", {silent = true, expr = true})
 vim.api.nvim_set_keymap("i", "<C-b>", "copilot#Backspace()", {silent = true, expr = true})
