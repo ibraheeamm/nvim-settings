@@ -15,6 +15,11 @@ local lazy = require('lazy')
 
 lazy.setup({
 
+    {
+        'towolf/vim-helm',
+
+    },
+
     -- lsp support
     {
         "neovim/nvim-lspconfig",
@@ -221,11 +226,6 @@ lazy.setup({
             require("init-null-ls")
         end,
     },
-
-    {
-        'towolf/vim-helm',
-        ft = 'helm'
-    }
 
     -- Additional plugins can be configured similarly...
 

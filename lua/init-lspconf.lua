@@ -153,3 +153,34 @@ nvim_lsp.bashls.setup({
 
 })
 
+nvim_lsp.helm_ls.setup({
+    cmd = {"helm_ls", "serve"},
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+    ['helm-ls'] = {
+        logLevel = "info",
+         valuesFiles = {
+         mainValuesFile = "values.yaml",
+         lintOverlayValuesFile = "values.lint.yaml",
+         additionalValuesFilesGlobPattern = "values*.yaml"
+    },
+        yamlls = {
+         enabled = true,
+         diagnosticsLimit = 50,
+         showDiagnosticsDirectly = false,
+         --filetypes_exclude = {"helm"},
+         path = "yaml-language-server",
+         config = {
+          schemas = {
+            kubernetes = "templates/**",
+          },
+          completion = true,
+          hover = true,
+        -- any other config from https://github.com/redhat-developer/yaml-language-server#language-server-settings
+      }
+    }
+  }
+}
+})
+
