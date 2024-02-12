@@ -61,3 +61,16 @@ vim.cmd([[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
 ]])
+
+-- Set buffers keymaps
+-- next buffer
+vim.api.nvim_set_keymap("n", "<C-j>", ":BufferLineCycleNext<CR>", { noremap = true, silent = true })
+-- previous buffer
+vim.api.nvim_set_keymap("n", "<C-p>", ":BufferLineCyclePrev<CR>", { noremap = true, silent = true })
+-- close buffer
+vim.api.nvim_set_keymap("n", "<C-x>", ":BufferLineCloseLeft<CR>", { noremap = true, silent = true })
+-- close all buffers
+vim.api.nvim_set_keymap("n", "<C-ax>", ":BufferLineCloseAllButCurrent<CR>", { noremap = true, silent = true })
+-- buffer number
+vim.api.nvim_set_keymap("n", "<leader>1", ":BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
+

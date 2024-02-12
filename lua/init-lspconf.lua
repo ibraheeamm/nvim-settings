@@ -28,57 +28,100 @@ end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-local servers = { "clangd", "pylsp", "gopls", "tsserver", "bashls", "yamlls"  }
-for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-    })
-end
-
---nvim_lsp.lua_ls({})
--- setup for lua language server
+---- setup for lua language server
+-- nvim_lsp.lua_ls.setup({
+--    cmd = { "lua-language-server", "-E", "/usr/local/bin/lua-language-server" },
+--    on_attach = on_attach,
+--    capabilities = capabilities,
+--    settings = {
+--        Lua = {
+--            runtime = {
+--                version = "LuaJIT",
+--                path = vim.split(package.path, ";"),
+--            },
+--            diagnostics = {
+--                globals = { "vim" },
+--            },
+--            workspace = {
+--                library = {
+--                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+--                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+--                },
+--            },
+--            telemetry = {
+--                enable = false,
+--            },
+--        },
+--    },
+-- })
+--
 nvim_lsp.lua_ls.setup({
-    cmd = { "lua-language-server", "-E", "/usr/share/lua-language-server/main.lua" },
     on_attach = on_attach,
     capabilities = capabilities,
-    settings = {
+    on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
         Lua = {
-            runtime = {
-                version = "LuaJIT",
-                path = vim.split(package.path, ";"),
-            },
-            diagnostics = {
-                globals = { "vim" },
-            },
-            workspace = {
-                library = {
-                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-                },
-            },
-            telemetry = {
-                enable = false,
-            },
+          runtime = {
+            -- Tell the language server which version of Lua you're using
+            -- (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT'
+            -- add path for lua language server 
+
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = {'vim'},
+            reset = true
+          },
+          -- Make the server aware of Neovim runtime files
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.env.VIMRUNTIME
+              -- "${3rd}/luv/library"
+              -- "${3rd}/busted/library",
+            }
+            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+            -- library = vim.api.nvim_get_runtime_file("", true)
+          },
+          telemetry = {
+            enable = true
+          },
+          format = {
+            enable = true,
+      -- Put format options here
+      -- NOTE: the value should be String!
+            defaultConfig = {
+                indent_style = "space",
+                indent_size = "2",
+             }
         },
-    },
+        }
+      })
+
+      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+    end
+    return true
+  end
 })
 
 nvim_lsp.html.setup({
-    cmd = { "vscode-html-languageserver", "--stdio" },
+    cmd = { "vscode-html-language-server", "--stdio" },
     filetypes = { "html", "htmldjango" },
     on_attach = on_attach,
     capabilities = capabilities,
 })
 
 nvim_lsp.cssls.setup({
-    cmd = { "vscode-css-languageserver", "--stdio" },
+    cmd = { "vscode-css-language-server", "--stdio" },
     on_attach = on_attach,
     capabilities = capabilities,
 })
 
 nvim_lsp.jsonls.setup({
-    cmd = { "vscode-json-languageserver", "--stdio" },
+    cmd = { "vscode-json-language-server", "--stdio" },
     on_attach = on_attach,
     capabilities = capabilities,
 })
@@ -109,3 +152,4 @@ nvim_lsp.bashls.setup({
     capabilities = capabilities,
 
 })
+

@@ -1,12 +1,5 @@
--- disable netrw 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
-
--- setup 
-require("nvim-tree").setup({
+local tree = require("nvim-tree")
+tree.setup({
   sort_by = "case_sensitive",
   view = {
     width = 30,
@@ -15,6 +8,8 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
   },
 })
+
+vim.api.nvim_set_keymap("n", "<C-t>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })

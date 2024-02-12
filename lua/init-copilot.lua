@@ -2,7 +2,7 @@
 -- copilot setup
 
 vim.g.copilot_autotrigger = true
-vim.g.copilot_no_tab_map = true
+vim.g.copilot_no_tab_map = false
 vim.g.copilot_autostart = 1
 vim.g.copilot_autostop = 1
 vim.g.copilot_autostart_min_lines = 10
@@ -12,24 +12,10 @@ vim.g.copilot_autostop_delay = 5
 vim.g.copilot_autostart_filetype = '*'
 vim.g.copilot_autostop_filetype = '*'
 
--- test 
 
-
-vim.api.nvim_set_keymap("i", "<C-j>", "copilot#Accept('<CR>')", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-k>", "copilot#Accept('<Esc>')", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-l>", "copilot#Accept('<Right>')", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-h>", "copilot#Accept('<Left>')", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-n>", "copilot#Accept('<Down>')", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-p>", "copilot#Accept('<Up>')", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-t>", "copilot#Trigger()", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-e>", "copilot#Stop()", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-d>", "copilot#Delete()", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-b>", "copilot#Backspace()", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-u>", "copilot#Clear()", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-a>", "copilot#ClearAll()", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-f>", "copilot#MoveForward()", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-b>", "copilot#MoveBackward()", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-Left>", "copilot#MoveLeft()", {silent = true, expr = true})
-vim.api.nvim_set_keymap("i", "<C-Right>", "copilot#MoveRight()", {silent = true, expr = true})
+-- suggest 
+vim.api.nvim_set_keymap("i", "<C-s>", "copilot#Suggest()", {silent = true, expr = true})
+vim.api.nvim_set_keymap("i", "<C-N>", "copilot#Next()", {silent = true, expr = true})
+vim.api.nvim_set_keymap("i", "<C-P>", "copilot#Previous()", {silent = true, expr = true})
 
 
