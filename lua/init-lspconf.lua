@@ -109,6 +109,7 @@ nvim_lsp.gopls.setup ({
           unusedparams = true,
         },
         staticcheck = true,
+        -- run go fmt on save
       },
     },
     on_attach = on_attach,
@@ -169,4 +170,17 @@ nvim_lsp.v_analyzer.setup({
     cmd = {"v-analyzer", "--stdio"},
     on_attach = on_attach,
     capabilities = capabilities,
+    filetypes = {"v", "vsh", "vv"},
+    root_dir = util.root_pattern("v.mod", ".git"),
+    settings = {
+        v = {
+            lintOnSave = true,
+            lint = {
+                onSave = true,
+                onSaveTimeout = 1000,
+                onOpen = true,
+                onOpenTimeout = 1000,
+            },
+        },
+    },
 })
