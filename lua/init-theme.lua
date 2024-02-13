@@ -6,4 +6,4 @@ vim.g.nord_uniform_diff_background = true
 
 local nord = require('nord')
 
-nord.set()
+--nord.set()

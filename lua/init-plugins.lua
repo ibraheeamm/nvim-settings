@@ -69,16 +69,6 @@ lazy.setup({
     'MunifTanjim/nui.nvim',
     'stevearc/dressing.nvim',
 
-    -- Icons
-    {
-        'kyazdani42/nvim-web-devicons',
-        config = function()
-            require('nvim-web-devicons').setup({ default = true })
-        end,
-    },
-
-
-
     -- Notifications
     {
         'rcarriga/nvim-notify',
@@ -87,16 +77,6 @@ lazy.setup({
             vim.notify.setup({ background_colour = "#282c34" })
         end,
     },
-
-        -- File explorer
-    {
-        'kyazdani42/nvim-tree.lua',
-        config = function()
-            require('init-tree')
-        end,
-    },
-
-    -- Fuzzy finder
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.5',
         dependencies = { 'nvim-lua/plenary.nvim' },
@@ -232,5 +212,32 @@ lazy.setup({
     -- Lazy.nvim allows specifying plugins to be loaded on certain triggers, which
     -- can significantly improve startup time. Review the documentation for
     -- advanced lazy loading strategies.
+{ "ellisonleao/gruvbox.nvim",
+  config = function()
+      require("init-gruvbox")
+  end,
+},
+
+{
+  "nvim-tree/nvim-tree.lua",
+  version = "*",
+  lazy = false,
+  dependencies = {
+    {
+     "nvim-tree/nvim-web-devicons", 
+      config = function()
+          require("init-icons")
+      end,
+    },
+  },
+  config = function()
+    require("init-tree")
+  end,
+},
+
+  {
+    "liuchengxu/vista.vim",
+    cmd = "Vista",
+  },
 
 })

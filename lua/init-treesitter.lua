@@ -1,5 +1,5 @@
 require("nvim-treesitter.configs").setup({
-    compilers = { "gcc", "go", "c", "rust"},
+    compilers = { "go", "rust", "v" },
     ensure_installed = {
         "javascript",
         "bash",
@@ -18,6 +18,10 @@ require("nvim-treesitter.configs").setup({
         "graphql",
         "toml",
         "regex",
+        "dockerfile",
+        "go",
+        "rust",
+        "v",
     },
 
     auto_install = true,

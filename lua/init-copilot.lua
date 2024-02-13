@@ -13,7 +13,6 @@ vim.g.copilot_autostart_filetype = '*'
 vim.g.copilot_autostop_filetype = '*'
 
 
--- suggest 
 vim.api.nvim_set_keymap("i", "<C-s>", "copilot#Suggest()", {silent = true, expr = true})
 vim.api.nvim_set_keymap("i", "<C-N>", "copilot#Next()", {silent = true, expr = true})
 vim.api.nvim_set_keymap("i", "<C-P>", "copilot#Previous()", {silent = true, expr = true})

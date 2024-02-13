@@ -1,6 +1,7 @@
 local windline = require("windline")
 local helper = require("windline.helpers")
 local b_components = require("windline.components.basic")
+--local state = _G.WindLine.state
 local state = _G.WindLine.state
 
 local lsp_comps = require("windline.components.lsp")

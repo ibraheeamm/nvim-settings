@@ -1,6 +1,9 @@
 local nvim_lsp = require("lspconfig")
 local util = require("lspconfig/util")
 
+-- set log level
+vim.lsp.set_log_level("debug")
+
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
@@ -23,38 +26,10 @@ local on_attach = function(_, bufnr)
     vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "<leader>so", require("telescope.builtin").lsp_document_symbols, opts)
-    vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting, opts)
+    vim.keymap.set("n", "<leader>f", vim.lsp.buf.formatting, opts)
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
----- setup for lua language server
--- nvim_lsp.lua_ls.setup({
---    cmd = { "lua-language-server", "-E", "/usr/local/bin/lua-language-server" },
---    on_attach = on_attach,
---    capabilities = capabilities,
---    settings = {
---        Lua = {
---            runtime = {
---                version = "LuaJIT",
---                path = vim.split(package.path, ";"),
---            },
---            diagnostics = {
---                globals = { "vim" },
---            },
---            workspace = {
---                library = {
---                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
---                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
---                },
---            },
---            telemetry = {
---                enable = false,
---            },
---        },
---    },
--- })
---
 nvim_lsp.lua_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
@@ -91,12 +66,10 @@ nvim_lsp.lua_ls.setup({
           },
           format = {
             enable = true,
-      -- Put format options here
-      -- NOTE: the value should be String!
             defaultConfig = {
-                indent_style = "space",
-                indent_size = "2",
-             }
+                indent_style = "tab",
+                indent_size = "1",
+             },
         },
         }
       })
@@ -128,7 +101,7 @@ nvim_lsp.jsonls.setup({
 
 nvim_lsp.gopls.setup ({
     cmd = {"gopls", "serve"},
-    filetypes = {"go", "gomod"},
+    filetypes = {"go", "gomod", "gowork", "gotmpl"},
     root_dir = util.root_pattern("go.work", "go.mod", ".git"),
     settings = {
       gopls = {
@@ -138,6 +111,8 @@ nvim_lsp.gopls.setup ({
         staticcheck = true,
       },
     },
+    on_attach = on_attach,
+    capabilities = capabilities,
   })
 
 nvim_lsp.yamlls.setup({
@@ -184,3 +159,14 @@ nvim_lsp.helm_ls.setup({
 }
 })
 
+nvim_lsp.dockerls.setup({
+    cmd = {"docker-langserver", "--stdio"},
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+nvim_lsp.v_analyzer.setup({
+    cmd = {"v-analyzer", "--stdio"},
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
