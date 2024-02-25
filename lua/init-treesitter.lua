@@ -22,6 +22,7 @@ require("nvim-treesitter.configs").setup({
         "go",
         "rust",
         "v",
+        "markdown",
     },
 
     auto_install = true,

@@ -78,3 +78,12 @@ vim.o.clipboard = "unnamedplus"
 
 -- disable editorconfig
 vim.g.editorconfig = false
+
+-- setup undo and redo shortcuts
+vim.api.nvim_set_keymap("n", "U", ":redo<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "u", ":undo<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-s>", "<cmd> w <CR>", { noremap = true, silent = true })
+
+-- remove a from changing the mode to INSERT
+--vim.api.nvim_set_keymap("n", "a", "<NOP>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>d", "\"_d", { noremap = true, silent = true })

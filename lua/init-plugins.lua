@@ -207,37 +207,48 @@ lazy.setup({
         end,
     },
 
-    -- Additional plugins can be configured similarly...
-
-    -- Lazy.nvim allows specifying plugins to be loaded on certain triggers, which
-    -- can significantly improve startup time. Review the documentation for
-    -- advanced lazy loading strategies.
-{ "ellisonleao/gruvbox.nvim",
-  config = function()
-      require("init-gruvbox")
-  end,
-},
-
-{
-  "nvim-tree/nvim-tree.lua",
-  version = "*",
-  lazy = false,
-  dependencies = {
-    {
-     "nvim-tree/nvim-web-devicons", 
-      config = function()
-          require("init-icons")
-      end,
+    { 
+        "ellisonleao/gruvbox.nvim",
+        config = function()
+            require("init-gruvbox")
+        end,
     },
-  },
-  config = function()
-    require("init-tree")
-  end,
-},
 
-  {
-    "liuchengxu/vista.vim",
-    cmd = "Vista",
-  },
+    {
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false,
+        dependencies = {
+            {
+                "nvim-tree/nvim-web-devicons",
+                config = function()
+                    require("init-icons")
+                end,
+            },
+        },
+        config = function()
+            require("init-tree")
+        end,
+    },
 
+    {
+        "liuchengxu/vista.vim",
+        cmd = "Vista",
+    },
+
+    {
+        "preservim/vim-markdown",
+        ft = { "markdown" },
+        config = function()
+            require("init-markdown")
+        end,
+    },
+
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function() vim.fn["mkdp#util#install"]() end,
+
+    },
 })

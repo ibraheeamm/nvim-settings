@@ -1,15 +1,16 @@
 local nvim_lsp = require("lspconfig")
 local util = require("lspconfig/util")
 
--- set log level
-vim.lsp.set_log_level("debug")
+-- set log level, affects performance
+--vim.lsp.set_log_level("debug")
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
+    client.resolved_capabilities.document_formatting = true
     local opts = { buffer = bufnr }
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -184,3 +185,6 @@ nvim_lsp.v_analyzer.setup({
         },
     },
 })
+
+-- add markdown lsp
+

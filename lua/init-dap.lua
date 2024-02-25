@@ -36,7 +36,7 @@ dap.adapters.go = {
     {
         type = "executable",
         command = "go",
-
+--
     }
 
 
