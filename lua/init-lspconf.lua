@@ -4,13 +4,17 @@ local util = require("lspconfig/util")
 -- set log level, affects performance
 --vim.lsp.set_log_level("debug")
 
+-- open with floating window with leader + e
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+--vim.keymap.set("n", "<leader>", vim.diagnostic.setloclist)
+
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local on_attach = function(client, bufnr)
-    client.resolved_capabilities.document_formatting = true
+    client.server_capabilities.documentFormattingProvider = true
     local opts = { buffer = bufnr }
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -27,10 +31,9 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "<leader>so", require("telescope.builtin").lsp_document_symbols, opts)
-    vim.keymap.set("n", "<leader>f", vim.lsp.buf.formatting, opts)
+    vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
 end
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 nvim_lsp.lua_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
@@ -46,10 +49,12 @@ nvim_lsp.lua_ls.setup({
             -- add path for lua language server 
 
           },
-          diagnostics = {
+           diagnostics = {
+            enable = true,
             -- Get the language server to recognize the `vim` global
             globals = {'vim'},
-            reset = true
+            reset = true,
+            disable = {'missing-fields'},
           },
           -- Make the server aware of Neovim runtime files
           workspace = {
@@ -75,7 +80,6 @@ nvim_lsp.lua_ls.setup({
         }
       })
 
-      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
     end
     return true
   end

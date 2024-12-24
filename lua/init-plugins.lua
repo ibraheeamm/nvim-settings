@@ -24,7 +24,7 @@ lazy.setup({
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-          { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
+          { "folke/neoconf.nvim", cmd = "Neoconf", opts = {}, dependencies = { "nvim-lspconfig" } },
           { "folke/neodev.nvim", opts = {} },
           "williamboman/mason-lspconfig.nvim",
       },
@@ -67,15 +67,22 @@ lazy.setup({
 
     -- UI components for Neovim
     'MunifTanjim/nui.nvim',
-    'stevearc/dressing.nvim',
+    {
+        'stevearc/dressing.nvim',
+        opts = {
+                input = { border = 'rounded' },
+                select = { backend = { 'telescope', 'fzf', 'builtin' } },
+        },
+    },
 
     -- Notifications
     {
         'rcarriga/nvim-notify',
-        config = function()
-            vim.notify = require('notify')
-            vim.notify.setup({ background_colour = "#282c34" })
-        end,
+        opts = {
+            stages = 'fade_in_slide_out',
+            timeout = 2000,
+            render = 'minimal',
+        },
     },
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.5',
@@ -91,30 +98,75 @@ lazy.setup({
         -- Lazy loading strategy: Load after telescope is loaded
     },
 
+
+    -- Tree setter dependencies
+    {
+        'JoosepAlviste/nvim-ts-context-commentstring',
+        config = function()
+            require('ts_context_commentstring').setup({
+                enable_autocmd = false,
+            })
+        end,
+
+    },
+
+    {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup({
+                pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+            })
+        end,
+        event = { "BufReadPost", "BufNewFile" }, -- Lazy-load when needed
+
+    },
+
+    {
+        'windwp/nvim-ts-autotag',
+        config = function()
+            require('nvim-ts-autotag').setup({
+              opts = {
+                -- Defaults
+                enable_close = true, -- Auto close tags
+                enable_rename = true, -- Auto rename pairs of tags
+                enable_close_on_slash = false -- Auto close on trailing </
+              },
+              -- Also override individual filetype configs, these take priority.
+              -- Empty by default, useful if one of the "opts" global settings
+              -- doesn't work well in a specific filetype
+              per_filetype = {
+                ["html"] = {
+                  enable_close = false
+                }
+              },
+            })
+        end,
+    },
+
     -- Treesitter configurations and abstraction layer
     {
         'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
-        config = function()
-            require('init-treesitter')
-        end,
         dependencies = {
             'nvim-treesitter/nvim-treesitter-textobjects',
             'nvim-treesitter/nvim-treesitter-refactor',
             'nvim-treesitter/nvim-treesitter-context',
-            'nvim-treesitter/playground',
-            'JoosepAlviste/nvim-ts-context-commentstring',
             'p00f/nvim-ts-rainbow',
             'RRethy/nvim-treesitter-textsubjects',
-            'windwp/nvim-ts-autotag',
         },
+        build = ':TSUpdate',
+        config = function()
+            require('init-treesitter')
+        end,
         -- Lazy loading strategy: Load on FileType event to enhance syntax highlighting
-        event = 'BufRead',
+        event = 'BufReadPost',
     },
 
 
 
      -- Debugging support
+    {
+        'nvim-neotest/nvim-nio',
+    },
     {
         'mfussenegger/nvim-dap',
         dependencies = {
@@ -143,18 +195,6 @@ lazy.setup({
         end,
     },
 
-    -- DAP (Debug Adapter Protocol) UI Enhancements
-    {
-        'rcarriga/nvim-dap-ui',
-        dependencies = {
-            'mfussenegger/nvim-dap',
-            'theHamsta/nvim-dap-virtual-text',
-        },
-        config = function()
-            require('init-dap')
-        end,
-    },
-
     -- Indentation guides for Neovim
     {
         'lukas-reineke/indent-blankline.nvim',
@@ -171,10 +211,26 @@ lazy.setup({
     },
     {
         'akinsho/nvim-bufferline.lua',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons'
+        },
         config = function()
-            require('bufferline').setup {}
+            require('bufferline').setup({
+                options = {
+                  numbers = "none", -- Options: "none", "ordinal", "buffer_id", "both", or a function
+                  diagnostics = "nvim_lsp", -- Options: false, "nvim_lsp", "coc"
+                  separator_style = "slant", -- Options: "slant", "thick", "thin", or a table with custom separators
+                  offsets = {
+                    {
+                    filetype = "NvimTree",
+                    text = "File Explorer",
+                    text_align = "center", -- Options: "left", "center", "right"
+                    },
+                },
+                    -- Additional options can be configured here
+                },
+            })
         end,
-        event = 'BufWinEnter', -- Load when a buffer window is entered
     },
 
     -- Git Integration
@@ -207,7 +263,7 @@ lazy.setup({
         end,
     },
 
-    { 
+    {
         "ellisonleao/gruvbox.nvim",
         config = function()
             require("init-gruvbox")
@@ -227,13 +283,20 @@ lazy.setup({
             },
         },
         config = function()
-            require("init-tree")
+            require("init-nvim-tree")
         end,
     },
 
     {
-        "liuchengxu/vista.vim",
-        cmd = "Vista",
+      "hedyhli/outline.nvim",
+      config = function()
+        -- Example mapping to toggle outline
+        vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
+
+        require("outline").setup {
+          -- Your setup opts here (leave empty to use defaults)
+        }
+      end,
     },
 
     {
@@ -249,6 +312,9 @@ lazy.setup({
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
         ft = { "markdown" },
         build = function() vim.fn["mkdp#util#install"]() end,
+        config = function()
+            require("init-markdown-preview")
+        end,
 
     },
 })

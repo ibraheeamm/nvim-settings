@@ -1,30 +1,24 @@
--- set runtime path
--- vim.o.runtimepath = vim.o.runtimepath .. ',~/.config/nvim/'
--- set theme
--- set colorscheme nord
---vim.cmd('colorscheme nord')
+
+-- Add a key mapping to call the function
+vim.keymap.set("n", "<leader>km", ":lua require('utils.keymaps').display_keymaps()<CR>", { noremap = true, silent = true })
+
 -- setup space as leader key
 vim.g.mapleader = ","
--- set termguicolors 
+-- set termguicolors
 
-
--- set colorscheme 
+-- set colorscheme
 
 -- Disable some default plugins
-vim.g.loaded_gzip = 1
-vim.g.loaded_zip = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_tar = 1
-vim.g.loaded_tarPlugin = 1
+--vim.g.loaded_gzip = 1
+--vim.g.loaded_zip = 1
+--vim.g.loaded_zipPlugin = 1
+--vim.g.loaded_tar = 1
+--vim.g.loaded_tarPlugin = 1
 vim.g.loaded_getscript = 1
 vim.g.loaded_getscriptPlugin = 1
 vim.g.loaded_vimball = 1
 vim.g.loaded_vimballPlugin = 1
 vim.g.loaded_2html_plugin = 1
-
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_netrwSettings = 1
 
 -- Split to the right in vsplit
 vim.o.splitright = true
@@ -64,26 +58,23 @@ vim.cmd([[
 
 -- Set buffers keymaps
 -- next buffer
-vim.api.nvim_set_keymap("n", "<C-n>", ":bn<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-n>", ":bn<CR>", { noremap = true, silent = true })
 -- previous buffer
-vim.api.nvim_set_keymap("n", "<C-p>", ":bp<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-p>", ":bp<CR>", { noremap = true, silent = true })
 -- close buffer
-vim.api.nvim_set_keymap("n", "<C-d>", ":bd<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-d>", ":bd<CR>", { noremap = true, silent = true })
 -- close all buffers
-vim.api.nvim_set_keymap("n", "<leader>q", ":bufdo bd<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-q>", ":bufdo bd<CR>", { noremap = true, silent = true })
 -- buffer number
-vim.api.nvim_set_keymap("n", "<leader>1", ":BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>1", ":BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
 -- set clipboard+=unnamedplus
 vim.o.clipboard = "unnamedplus"
-
 -- disable editorconfig
 vim.g.editorconfig = false
-
 -- setup undo and redo shortcuts
-vim.api.nvim_set_keymap("n", "U", ":redo<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "u", ":undo<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-s>", "<cmd> w <CR>", { noremap = true, silent = true })
-
+vim.keymap.set("n", "U", ":redo<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "u", ":undo<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", { noremap = true, silent = true })
 -- remove a from changing the mode to INSERT
---vim.api.nvim_set_keymap("n", "a", "<NOP>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>d", "\"_d", { noremap = true, silent = true })
+vim.keymap.set("n", "a", "<NOP>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>d", '"_d', { noremap = true, silent = true })
